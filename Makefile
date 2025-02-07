@@ -103,3 +103,15 @@ deps.linux.arm64: duckdb
 	$(MKDIR_COMMAND)
 	$(CORE_COMMAND)
 
+.PHONY: deps.linux.arm64.debug
+deps.linux.arm64.debug: CC = aarch64-linux-gnu-gcc
+deps.linux.arm64.debug: CXX = aarch64-linux-gnu-g++
+deps.linux.arm64.debug: CFLAGS += -O2 -g -fsanitize=address
+deps.linux.arm64.debug: CXXFLAGS += -O2 -g -fsanitize=address
+deps.linux.arm64.debug: DEP_NAME = linux_arm64_debug
+deps.linux.arm64.debug: VCPKG_TARGET_TRIPLET = arm64-linux
+deps.linux.arm64.debug: duckdb
+	$(CHECK_LINUX)
+	$(MKDIR_COMMAND)
+	$(CORE_COMMAND)
+
