@@ -46,6 +46,13 @@ test.linux.amd64:
 	CGO_LDFLAGS="-L$(PWD)/deps/linux_arm64/ -Wl,-rpath -Wl,$$ORIGIN/deps/linux_arm64/" go test -tags duckdb_use_lib github.com/marcboeker/go-duckdb/... -run '^TestOpen$\' duckdb_test.go
 	CGO_LDFLAGS="-L$(PWD)/deps/linux_arm64/ -Wl,-rpath -Wl,$$ORIGIN/deps/linux_arm64/" go test -tags duckdb_use_lib ./ -run '^TestExtensions$\' extensions_test.go
 
+.PHONY: test.linux.arm64.debug
+test.linux.arm64.debug: CC = aarch64-linux-gnu-gcc
+test.linux.arm64.debug: CXX = aarch64-linux-gnu-g++
+test.linux.arm64.debug:
+	CGO_LDFLAGS="-L$(PWD)/deps/linux_arm64_debug/ -Wl,-rpath -Wl,$$ORIGIN/deps/linux_arm64_debug/" go test -tags duckdb_use_lib github.com/marcboeker/go-duckdb/... -run '^TestOpen$\' duckdb_test.go
+	CGO_LDFLAGS="-L$(PWD)/deps/linux_arm64_debug/ -Wl,-rpath -Wl,$$ORIGIN/deps/linux_arm64_debug/" go test -tags duckdb_use_lib ./ -run '^TestExtensions$\' extensions_test.go
+
 .PHONY: duckdb
 duckdb:
 	rm -rf duckdb
